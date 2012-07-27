@@ -7,7 +7,7 @@ from django.conf.urls.defaults import url, patterns, include
 from django.conf.urls.defaults import handler500, handler404
 from django.contrib import admin
 from askbot import views
-from askbot.feed import RssLastestQuestionsFeed, RssIndividualQuestionFeed
+#from askbot.feed import RssLastestQuestionsFeed, RssIndividualQuestionFeed
 from askbot.sitemap import QuestionsSitemap
 from askbot.skins.utils import update_media_revision
 
@@ -19,10 +19,10 @@ if getattr(settings, "ASKBOT_TRANSLATE_URL", False):
 else:
     _ = lambda s:s
 
-feeds = {
-    'rss': RssLastestQuestionsFeed,
-    'question':RssIndividualQuestionFeed
-}
+#feeds = {
+#    'rss': RssLastestQuestionsFeed,
+#    'question':RssIndividualQuestionFeed
+#}
 sitemaps = {
     'questions': QuestionsSitemap
 }
@@ -325,12 +325,12 @@ urlpatterns = patterns('',
         views.commands.join_or_leave_group,
         name = 'join_or_leave_group'
     ),
-    url(
-        r'^feeds/(?P<url>.*)/$', 
-        'django.contrib.syndication.views.feed',
-        {'feed_dict': feeds},
-        name='feeds'
-    ),
+    #url(
+    #    r'^feeds/(?P<url>.*)/$', 
+    #    'django.contrib.syndication.views.feed',
+    #    {'feed_dict': feeds},
+    #    name='feeds'
+    #),
     #upload url is ajax only
     url( r'^%s$' % _('upload/'), views.writers.upload, name='upload'),
     url(r'^%s$' % _('feedback/'), views.meta.feedback, name='feedback'),
