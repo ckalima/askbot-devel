@@ -75,6 +75,12 @@ def questions(request, **kwargs):
     if request.method != 'GET':
         return HttpResponseNotAllowed(['GET'])
 
+    # js less behavior, use search params from http get request vars, in case of usual form submit
+    params = ["scope", "sort", "query", "tags", "author", "page"] # from urls.py
+    for p in params:
+        if not kwargs.get(p, None) and p in request.GET:
+            kwargs[p] = request.GET.get(p)
+    
     search_state = SearchState(user_logged_in=request.user.is_authenticated(), **kwargs)
     page_size = int(askbot_settings.DEFAULT_QUESTIONS_PAGE_SIZE)
 
