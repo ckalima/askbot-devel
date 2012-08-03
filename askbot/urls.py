@@ -62,7 +62,7 @@ urlpatterns = patterns('',
             r'(%s)?' % r'/scope:(?P<scope>\w+)' +
             r'(%s)?' % r'/sort:(?P<sort>[\w\-]+)' +
             r'(%s)?' % r'/query:(?P<query>[^/]+)' +  # INFO: question string cannot contain slash (/), which is a section terminator
-            r'(%s)?' % r'/tags:(?P<tags>[\w+.#,-]+)' + # Should match: const.TAG_CHARS + ','; TODO: Is `#` char decoded by the time URLs are processed ??
+            r'(%s)?' % r'/tags:(?P<tags>[\w+\.\#\-\ ]+)' + # Should match: const.TAG_CHARS + ','; TODO: Is `#` char decoded by the time URLs are processed ??
             r'(%s)?' % r'/author:(?P<author>\d+)' +
             r'(%s)?' % r'/page:(?P<page>\d+)' +
         r'/$'),
@@ -203,6 +203,11 @@ urlpatterns = patterns('',
         r'^get-tag-list/',
         views.commands.get_tag_list,
         name = 'get_tag_list'
+    ),
+    url(
+        r'^get-popular-tag-list/',
+        views.commands.get_popular_tag_list,
+        name = 'get_popular_tag_list'
     ),
     url(
         r'^load-tag-wiki-text/',

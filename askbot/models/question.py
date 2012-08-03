@@ -467,7 +467,7 @@ class Thread(models.Model):
         if self.tagnames.strip() == '':
             return list()
         else:
-            return self.tagnames.split(u' ')
+            return self.tagnames.split(const.TAG_SEP)
 
     def get_title(self, question=None):
         if not question:
@@ -738,7 +738,7 @@ class Thread(models.Model):
         previous_tags = list(self.tags.all())
 
         previous_tagnames = set([tag.name for tag in previous_tags])
-        updated_tagnames = set(t for t in tagnames.strip().split(' '))
+        updated_tagnames = set(t for t in tagnames.strip().split(const.TAG_SEP))
 
         removed_tagnames = previous_tagnames - updated_tagnames
         added_tagnames = updated_tagnames - previous_tagnames
