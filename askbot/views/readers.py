@@ -251,9 +251,9 @@ def tags(request):#view showing a listing of available tags - plain list
                             )
             else:
                 if sortby == "name":
-                    objects_list = Paginator(models.Tag.objects.all().filter(deleted=False).exclude(used_count=0).order_by("name"), DEFAULT_PAGE_SIZE)
+                    objects_list = Paginator(models.Tag.objects.all().filter(deleted=False).exclude(used_count=0).order_by("-is_special","name"), DEFAULT_PAGE_SIZE)
                 else:
-                    objects_list = Paginator(models.Tag.objects.all().filter(deleted=False).exclude(used_count=0).order_by("-used_count"), DEFAULT_PAGE_SIZE)
+                    objects_list = Paginator(models.Tag.objects.all().filter(deleted=False).exclude(used_count=0).order_by("-is_special","-used_count"), DEFAULT_PAGE_SIZE)
 
         try:
             tags = objects_list.page(page)
