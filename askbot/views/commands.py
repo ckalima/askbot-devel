@@ -493,7 +493,7 @@ def get_popular_tag_list(request):
                     ).order_by('-used_count').values_list(
                         'name', flat = True
                     )
-    data = simplejson.dumps(tag_names)
+    data = simplejson.dumps(list(tag_names))
     return HttpResponse(data, mimetype = 'application/json')
 
 @decorators.get_only
