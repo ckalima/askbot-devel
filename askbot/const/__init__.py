@@ -50,6 +50,10 @@ POST_SORT_METHODS = (
     ('answers-asc', _('coldest')),
     ('votes-desc', _('most voted')),
     ('votes-asc', _('least voted')),
+    ('view-count-desc', _('most viewed')),
+    ('view-count-asc', _('least viewed')),
+    ('answer-votes-count-desc', _('most active answer voting')),
+    ('answer-votes-count-asc', _('least active answer voting')),
     ('relevance-desc', _('relevance')),
 )
 
@@ -108,7 +112,7 @@ ANSWER_SORT_METHODS = (#no translations needed here
 #because they are keys to the hash used in implementations
 #of Q.run_advanced_search
 
-DEFAULT_POST_SORT_METHOD = 'activity-desc'
+DEFAULT_POST_SORT_METHOD = 'answers-desc'
 POST_SCOPE_LIST = (
     ('all', _('all')),
     ('unanswered', _('unanswered')),

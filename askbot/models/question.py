@@ -290,6 +290,10 @@ class ThreadManager(models.Manager):
             'answers-asc': 'answer_count',
             'votes-desc': '-score',
             'votes-asc': 'score',
+            'answer-votes-count-desc': '-answer_votes_count',
+            'answer-votes-count-asc': 'answer_votes_count',
+            'view-count-desc': '-view_count',
+            'view-count-asc': 'view_count',
 
             'relevance-desc': '-relevance', # special Postgresql-specific ordering, 'relevance' quaso-column is added by get_for_query()
         }
@@ -378,6 +382,7 @@ class Thread(models.Model):
     view_count = models.PositiveIntegerField(default=0)
     favourite_count = models.PositiveIntegerField(default=0)
     answer_count = models.PositiveIntegerField(default=0)
+    answer_votes_count = models.PositiveIntegerField(default=0)
     last_activity_at = models.DateTimeField(default=datetime.datetime.now)
     last_activity_by = models.ForeignKey(User, related_name='unused_last_active_in_threads')
 
