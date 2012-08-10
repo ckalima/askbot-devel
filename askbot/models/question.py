@@ -575,6 +575,7 @@ class Thread(models.Model):
                     {
                         'latest':'-added_at',
                         'oldest':'added_at',
+                        'novotes':'score',
                         'votes':'-score'
                     }[sort_method]
                 )
