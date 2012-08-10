@@ -489,6 +489,7 @@ def get_popular_tag_list(request):
     """
     tag_names = models.Tag.objects.filter(
                         deleted = False,
+                        is_special = False,
                         used_count__gt=0
                     ).order_by('-used_count').values_list(
                         'name', flat = True
