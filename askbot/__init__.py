@@ -12,7 +12,7 @@ VERSION = (0, 7, 43)
 #values - the package qualifier to use for pip
 REQUIREMENTS = {
     'akismet': 'akismet',
-    'django': 'django==1.4',
+    'django': 'django==1.4.1',
     'jinja2': 'Jinja2',
     'coffin': 'Coffin>=0.3',
     'south': 'South>=0.7.1',
