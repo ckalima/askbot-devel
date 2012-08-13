@@ -29,7 +29,7 @@ from django.conf import settings
 import askbot
 from askbot import exceptions
 from askbot.utils.diff import textDiff as htmldiff
-from askbot.forms import AnswerForm, ShowQuestionForm
+from askbot.forms import AnswerForm, ShowQuestionForm, AskForm
 from askbot import models
 from askbot import schedules
 from askbot.models.tag import Tag
@@ -218,6 +218,7 @@ def questions(request, **kwargs):
             'query_string': search_state.query_string(),
             'search_state': search_state,
             'feed_url': context_feed_url,
+            'form': AskForm(initial={'tags': ', '.join(search_state.tags)}),
         }
 
         return render_into_skin('main_page.html', template_data, request)
