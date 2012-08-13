@@ -35,6 +35,7 @@ class ActivityAdmin(admin.ModelAdmin):
     """  admin class"""
     
 admin.site.register(models.Post)
+admin.site.register(models.Thread)
 admin.site.register(models.Tag, TagAdmin)
 admin.site.register(models.Vote, VoteAdmin)
 admin.site.register(models.FavoriteQuestion, FavoriteQuestionAdmin)
