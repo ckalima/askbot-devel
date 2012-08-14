@@ -25,7 +25,7 @@ REQUIREMENTS = {
     'unidecode': 'unidecode',
     'django_countries': 'django-countries==1.0.5',
     'djcelery': 'django-celery==2.2.7',
-    'djkombu': 'django-kombu==0.9.2',
+    'djkombu': 'django-kombu==0.9.4',
     'followit': 'django-followit',
     'recaptcha_works': 'django-recaptcha-works',
     'openid': 'python-openid',
