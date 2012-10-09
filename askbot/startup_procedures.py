@@ -116,7 +116,7 @@ def test_middleware():
         'django.middleware.common.CommonMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         #'askbot.middleware.anon_user.ConnectToSessionMessagesMiddleware',
-        'askbot.middleware.forum_mode.ForumModeMiddleware',
+        #'askbot.middleware.forum_mode.ForumModeMiddleware',
         'askbot.middleware.cancel.CancelActionMiddleware',
         'django.middleware.transaction.TransactionMiddleware',
     ]
@@ -125,7 +125,7 @@ def test_middleware():
             'debug_toolbar.middleware.DebugToolbarMiddleware',
         )
     required_middleware.extend([
-        'askbot.middleware.view_log.ViewLogMiddleware',
+        #'askbot.middleware.view_log.ViewLogMiddleware',
         'askbot.middleware.spaceless.SpacelessMiddleware',
     ])
     found_middleware = [x for x in django_settings.MIDDLEWARE_CLASSES
