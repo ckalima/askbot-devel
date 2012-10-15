@@ -6,7 +6,7 @@ basic actions on behalf of the forum application
 """
 import os
 
-VERSION = (0, 7, 43)
+VERSION = (0, 7, 43, 'custom1')
 
 #keys are module names used by python imports,
 #values - the package qualifier to use for pip
