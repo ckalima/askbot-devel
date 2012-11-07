@@ -18,6 +18,7 @@ from django.utils.http import urlquote as django_urlquote
 from django.core import exceptions as django_exceptions
 from django.core.exceptions import ValidationError
 from django.contrib.contenttypes.models import ContentType
+from django.db import transaction
 
 import askbot
 
@@ -468,6 +469,8 @@ class Post(models.Model):
         #this save must precede saving the mention activity
         #because generic relation needs primary key of the related object
         super(self.__class__, self).save(**kwargs)
+        transaction.commit()
+
         if last_revision:
             diff = htmldiff(
                         sanitize_html(last_revision),
