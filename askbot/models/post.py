@@ -3,6 +3,7 @@ import datetime
 import operator
 import cgi
 import logging
+import re
 
 from django.utils.html import strip_tags
 from django.contrib.sitemaps import ping_google
