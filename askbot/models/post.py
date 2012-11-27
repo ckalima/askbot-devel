@@ -384,6 +384,18 @@ class Post(models.Model):
         if _use_markdown:
             text = sanitize_html(markup.get_parser().convert(text))
 
+        #remake links, because they will not work with ckeditor otherwise
+        URL_RE = re.compile("((?<!(href|.src|data)=['\"])((http|https|ftp)\://([a-zA-Z0-9\.\-]+(\:[a-zA-Z0-9\.&amp;%\$\-]+)*@)*((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\?\'\\\+&amp;%\$#\=~_\(\)\/\-]+))*))")
+        replacements = []
+        repl = r'\1'
+        for match in URL_RE.finditer(text):
+            href = match.expand(repl)
+            replacements.append((match.span(), href))
+
+        for (start, end), href in reversed(replacements):
+            link = '<a href="%s">%s</a>' % (href, text[start:end])
+            text = text[:start] + link + text[end:]
+
         #todo, add markdown parser call conditional on
         #self.use_markdown flag
         post_html = text
@@ -933,12 +945,9 @@ class Post(models.Model):
                 feed_type = 'q_ans',
             )
             subscriber_set.update(answer_subscribers)
-            #print 'answer subscribers: ', answer_subscribers
 
-        #print 'exclude_list is ', exclude_list
         subscriber_set -= set(exclude_list)
 
-        #print 'final subscriber set is ', subscriber_set
         return list(subscriber_set)
 
     def _comment__get_instant_notification_subscribers(
