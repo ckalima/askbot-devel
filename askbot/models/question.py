@@ -10,6 +10,7 @@ from django.core.urlresolvers import reverse
 from django.utils.hashcompat import md5_constructor
 from django.utils.translation import ugettext as _
 from django.utils.translation import ungettext
+from django.db.models import Q
 
 import askbot
 import askbot.conf
@@ -125,7 +126,7 @@ class ThreadManager(models.Manager):
 
         return thread
 
-    def get_for_query(self, search_query, qs=None):
+    def get_for_query(self, search_query, qs=None, user_ids=None):
         """returns a query set of questions,
         matching the full text query
         """
@@ -144,7 +145,7 @@ class ThreadManager(models.Manager):
             )
         elif 'postgresql_psycopg2' in askbot.get_database_engine_name():
             from askbot.search import postgresql
-            return postgresql.run_full_text_search(qs, search_query)
+            return postgresql.run_full_text_search(qs, search_query, user_ids)
         else:
             return qs.filter(
                 models.Q(title__icontains=search_query) |
@@ -174,7 +175,13 @@ class ThreadManager(models.Manager):
         meta_data = {}
 
         if search_state.stripped_query:
-            qs = self.get_for_query(search_query=search_state.stripped_query, qs=qs)
+            user_qs = User.objects.filter(Q(first_name__icontains=search_state.stripped_query) | Q(last_name__icontains=search_state.stripped_query))
+            user_ids = []
+            for u in user_qs:
+                user_ids.append(str(u.id))
+            
+            qs = self.get_for_query(search_query=search_state.stripped_query, qs=qs, user_ids=",".join(user_ids))
+           
         if search_state.query_title:
             qs = qs.filter(title__icontains = search_state.query_title)
         if search_state.query_users:
