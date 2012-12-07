@@ -112,7 +112,7 @@ ANSWER_SORT_METHODS = (#no translations needed here
 #because they are keys to the hash used in implementations
 #of Q.run_advanced_search
 
-DEFAULT_POST_SORT_METHOD = 'answers-desc'
+DEFAULT_POST_SORT_METHOD = 'activity-desc'
 POST_SCOPE_LIST = (
     ('all', _('all')),
     ('unanswered', _('unanswered')),
