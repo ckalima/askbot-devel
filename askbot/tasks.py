@@ -104,6 +104,8 @@ def record_post_update_celery_task(
         diff = None,
     ):
     transaction.enter_transaction_management()
+    from django import db  
+    db.close_connection() 
 
     #reconstitute objects from the database
     updated_by = User.objects.get(id = updated_by_id)
@@ -238,10 +240,15 @@ def record_question_visit(
     #question_post = Post.objects.filter(
     #    id = question_post_id
     #).select_related('thread')[0]
+    from django import db  
+    db.close_connection()  
+    transaction.enter_transaction_management()
+
     if update_view_count:
         question_post.thread.increase_view_count()
 
     if user.is_anonymous():
+        transaction.commit()
         return
 
     #2) question view count per user and clear response displays
@@ -257,3 +264,5 @@ def record_question_visit(
                     actor = user,
                     context_object = question_post,
                 )
+
+    transaction.commit()
