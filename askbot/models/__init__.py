@@ -2320,6 +2320,12 @@ def _process_vote(user, post, timestamp=None, cancel=False, vote_type=None):
         post.thread.save()
         post.thread.update_summary_html()
 
+    if post.post_type == 'answer':
+        # denormalize counter
+        from django.db.models import Count
+        post.thread.answer_votes_count = post.thread.posts.aggregate(votes=Count('votes')).get('votes', 0)
+        post.thread.save()
+
     if cancel:
         return None
 

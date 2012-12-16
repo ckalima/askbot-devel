@@ -29,7 +29,7 @@ from django.conf import settings
 import askbot
 from askbot import exceptions
 from askbot.utils.diff import textDiff as htmldiff
-from askbot.forms import AnswerForm, ShowQuestionForm
+from askbot.forms import AnswerForm, ShowQuestionForm, AskForm
 from askbot import models
 from askbot import schedules
 from askbot.models.tag import Tag
@@ -75,6 +75,12 @@ def questions(request, **kwargs):
     if request.method != 'GET':
         return HttpResponseNotAllowed(['GET'])
 
+    # js less behavior, use search params from http get request vars, in case of usual form submit
+    params = ["scope", "sort", "query", "tags", "author", "page"] # from urls.py
+    for p in params:
+        if not kwargs.get(p, None) and p in request.GET:
+            kwargs[p] = request.GET.get(p)
+    
     search_state = SearchState(user_logged_in=request.user.is_authenticated(), **kwargs)
     page_size = int(askbot_settings.DEFAULT_QUESTIONS_PAGE_SIZE)
 
@@ -212,6 +218,7 @@ def questions(request, **kwargs):
             'query_string': search_state.query_string(),
             'search_state': search_state,
             'feed_url': context_feed_url,
+            'form': AskForm(initial={'tags': ', '.join(search_state.tags)}),
         }
 
         return render_into_skin('main_page.html', template_data, request)
@@ -245,9 +252,9 @@ def tags(request):#view showing a listing of available tags - plain list
                             )
             else:
                 if sortby == "name":
-                    objects_list = Paginator(models.Tag.objects.all().filter(deleted=False).exclude(used_count=0).order_by("name"), DEFAULT_PAGE_SIZE)
+                    objects_list = Paginator(models.Tag.objects.all().filter(deleted=False).exclude(used_count=0).order_by("-is_special","name"), DEFAULT_PAGE_SIZE)
                 else:
-                    objects_list = Paginator(models.Tag.objects.all().filter(deleted=False).exclude(used_count=0).order_by("-used_count"), DEFAULT_PAGE_SIZE)
+                    objects_list = Paginator(models.Tag.objects.all().filter(deleted=False).exclude(used_count=0).order_by("-is_special","-used_count"), DEFAULT_PAGE_SIZE)
 
         try:
             tags = objects_list.page(page)

@@ -67,6 +67,10 @@ POST_SORT_METHODS = (
     ('answers-asc', _('coldest')),
     ('votes-desc', _('most voted')),
     ('votes-asc', _('least voted')),
+    ('view-count-desc', _('most viewed')),
+    ('view-count-asc', _('least viewed')),
+    ('answer-votes-count-desc', _('most active answer voting')),
+    ('answer-votes-count-asc', _('least active answer voting')),
     ('relevance-desc', _('relevance')),
 )
 
@@ -139,7 +143,7 @@ TAG_LIST_FORMAT_CHOICES = (
 )
 
 PAGE_SIZE_CHOICES = (('10', '10',), ('30', '30',), ('50', '50',),)
-ANSWERS_PAGE_SIZE = 10
+ANSWERS_PAGE_SIZE = 20
 QUESTIONS_PER_PAGE_USER_CHOICES = ((10, u'10'), (30, u'30'), (50, u'50'),)
 
 UNANSWERED_QUESTION_MEANING_CHOICES = (
@@ -156,10 +160,10 @@ UNANSWERED_QUESTION_MEANING_CHOICES = (
 #however it will be hard to expect that people will type
 #correct regexes - plus this must be an anchored regex
 #to do full string match
-TAG_CHARS = r'\w+.#-'
+TAG_CHARS = r'\w+\.\#\-\ '
 TAG_REGEX_BARE = r'[%s]+' % TAG_CHARS
 TAG_REGEX = r'^%s$' % TAG_REGEX_BARE
-TAG_SPLIT_REGEX = r'[ ,]+'
+TAG_SPLIT_REGEX = r'[,]+'
 TAG_SEP = ',' # has to be valid TAG_SPLIT_REGEX char and MUST NOT be in const.TAG_CHARS
 EMAIL_REGEX = re.compile(r'\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b', re.I)
 

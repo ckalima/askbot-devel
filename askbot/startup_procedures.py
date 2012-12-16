@@ -115,8 +115,8 @@ def test_middleware():
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'askbot.middleware.anon_user.ConnectToSessionMessagesMiddleware',
-        'askbot.middleware.forum_mode.ForumModeMiddleware',
+        #'askbot.middleware.anon_user.ConnectToSessionMessagesMiddleware',
+        #'askbot.middleware.forum_mode.ForumModeMiddleware',
         'askbot.middleware.cancel.CancelActionMiddleware',
         'django.middleware.transaction.TransactionMiddleware',
     ]
@@ -125,7 +125,7 @@ def test_middleware():
             'debug_toolbar.middleware.DebugToolbarMiddleware',
         )
     required_middleware.extend([
-        'askbot.middleware.view_log.ViewLogMiddleware',
+        #'askbot.middleware.view_log.ViewLogMiddleware',
         'askbot.middleware.spaceless.SpacelessMiddleware',
     ])
     found_middleware = [x for x in django_settings.MIDDLEWARE_CLASSES
@@ -355,17 +355,17 @@ def test_staticfiles():
             'The setting must be a url at which static files '
             'are accessible.'
         )
-    url = urlparse(static_url).path
-    if not (url.startswith('/') and url.endswith('/')):
-        #a simple check for the url
-        errors.append(
-            'Path in the STATIC_URL must start and end with the /.'
-        )
-    if django_settings.ADMIN_MEDIA_PREFIX != static_url + 'admin/':
-        errors.append(
-            'Set ADMIN_MEDIA_PREFIX as: \n'
-            "    ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'"
-        )
+    #url = urlparse(static_url).path
+    #if not (url.startswith('/') and url.endswith('/')):
+    #    #a simple check for the url
+    #    errors.append(
+    #        'Path in the STATIC_URL must start and end with the /.'
+    #    )
+    #if django_settings.ADMIN_MEDIA_PREFIX != static_url + 'admin/':
+    #    errors.append(
+    #        'Set ADMIN_MEDIA_PREFIX as: \n'
+    #        "    ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'"
+    #    )
 
     askbot_root = os.path.dirname(askbot.__file__)
     skin_dir = os.path.abspath(os.path.join(askbot_root, 'skins'))
@@ -373,25 +373,25 @@ def test_staticfiles():
     # django_settings.STATICFILES_DIRS can have strings or tuples
     staticfiles_dirs = [d[1] if isinstance(d, tuple) else d
                         for d in django_settings.STATICFILES_DIRS]
-    if skin_dir not in map(os.path.abspath, staticfiles_dirs):
-        errors.append(
-            'Add to STATICFILES_DIRS list of your settings.py file:\n'
-            "    '%s'," % skin_dir
-        )
-    extra_skins_dir = getattr(django_settings, 'ASKBOT_EXTRA_SKINS_DIR', None)
-    if extra_skins_dir is not None:
-        if not os.path.isdir(extra_skins_dir):
-            errors.append(
-                'Directory specified with settning ASKBOT_EXTRA_SKINS_DIR '
-                'must exist and contain your custom skins for askbot.'
-            )
-        if extra_skins_dir not in staticfiles_dirs:
-            errors.append(
-                'Add ASKBOT_EXTRA_SKINS_DIR to STATICFILES_DIRS entry in '
-                'your settings.py file.\n'
-                'NOTE: it might be necessary to move the line with '
-                'ASKBOT_EXTRA_SKINS_DIR just above STATICFILES_DIRS.'
-            )
+    #if skin_dir not in map(os.path.abspath, staticfiles_dirs):
+    #    errors.append(
+    #        'Add to STATICFILES_DIRS list of your settings.py file:\n'
+    #        "    '%s'," % skin_dir
+    #    )
+    #extra_skins_dir = getattr(django_settings, 'ASKBOT_EXTRA_SKINS_DIR', None)
+    #if extra_skins_dir is not None:
+    #    if not os.path.isdir(extra_skins_dir):
+    #        errors.append(
+    #            'Directory specified with settning ASKBOT_EXTRA_SKINS_DIR '
+    #            'must exist and contain your custom skins for askbot.'
+    #        )
+    #    if extra_skins_dir not in staticfiles_dirs:
+    #        errors.append(
+    #            'Add ASKBOT_EXTRA_SKINS_DIR to STATICFILES_DIRS entry in '
+    #            'your settings.py file.\n'
+    #            'NOTE: it might be necessary to move the line with '
+    #            'ASKBOT_EXTRA_SKINS_DIR just above STATICFILES_DIRS.'
+    #        )
 
     if django_settings.STATICFILES_STORAGE == \
         'django.contrib.staticfiles.storage.StaticFilesStorage':

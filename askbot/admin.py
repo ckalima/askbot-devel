@@ -33,8 +33,26 @@ class ReputeAdmin(admin.ModelAdmin):
 
 class ActivityAdmin(admin.ModelAdmin):
     """  admin class"""
+    date_hierarchy = 'active_at'
+    list_filter = ('activity_type', 'active_at')
+    list_display = ('user', 'activity_type', 'active_at', 'content_type')
     
-admin.site.register(models.Post)
+class ThreadAdmin(admin.ModelAdmin):
+    """  admin class"""
+    search_fields = ['title']
+    date_hierarchy = 'added_at'
+    list_filter = ('last_activity_at', 'added_at')
+    list_display = ('title', 'added_at', 'last_activity_at', 'answer_count', 'view_count')
+
+class PostAdmin(admin.ModelAdmin):
+    """  admin class"""
+    search_fields = ['text', 'thread__title']
+    date_hierarchy = 'added_at'
+    list_filter = ('post_type', 'added_at')
+    list_display = ('summary', 'author', 'post_type', 'thread', 'added_at', 'score')
+
+admin.site.register(models.Post, PostAdmin)
+admin.site.register(models.Thread, ThreadAdmin)
 admin.site.register(models.Tag, TagAdmin)
 admin.site.register(models.Vote, VoteAdmin)
 admin.site.register(models.FavoriteQuestion, FavoriteQuestionAdmin)

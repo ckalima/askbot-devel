@@ -463,10 +463,15 @@ def edit_answer(request, id):
         else:
             revision_form = forms.RevisionForm(answer, latest_revision)
             form = forms.EditAnswerForm(answer, latest_revision)
+
+        thread = answer.thread
+        q = thread.posts.get(post_type='question')
         data = {
             'page_class': 'edit-answer-page',
             'active_tab': 'questions',
             'answer': answer,
+            'thread': thread,
+            'question': q,
             'revision_form': revision_form,
             'form': form,
         }

@@ -138,6 +138,8 @@ class Tag(models.Model):
     deleted     = models.BooleanField(default=False)
     deleted_at  = models.DateTimeField(null=True, blank=True)
     deleted_by  = models.ForeignKey(User, null=True, blank=True, related_name='deleted_tags')
+    
+    is_special = models.BooleanField(default=False)
 
     tag_wiki = models.OneToOneField(
                                 'Post',

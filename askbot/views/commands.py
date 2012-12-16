@@ -484,6 +484,20 @@ def get_tag_list(request):
     return HttpResponse(output, mimetype = 'text/plain')
 
 @decorators.get_only
+def get_popular_tag_list(request):
+    """returns popular tags
+    """
+    tag_names = models.Tag.objects.filter(
+                        deleted = False,
+                        is_special = False,
+                        used_count__gt=0
+                    ).order_by('-used_count').values_list(
+                        'name', flat = True
+                    )
+    data = simplejson.dumps(list(tag_names))
+    return HttpResponse(data, mimetype = 'application/json')
+
+@decorators.get_only
 def load_tag_wiki_text(request):
     """returns text of the tag wiki in markdown format"""
     if 'tag_id' not in request.GET:

@@ -236,8 +236,8 @@ class TitleField(forms.CharField):
             value = ''
         if len(value) < askbot_settings.MIN_TITLE_LENGTH:
             msg = ungettext_lazy(
-                'title must be > %d character',
-                'title must be > %d characters',
+                'Your question must be at least %d character',
+                'Your question must be at least %d characters',
                 askbot_settings.MIN_TITLE_LENGTH
             ) % askbot_settings.MIN_TITLE_LENGTH
             raise forms.ValidationError(msg)
@@ -335,7 +335,7 @@ class TagNamesField(forms.CharField):
     def clean(self, value):
         from askbot import models
         value = super(TagNamesField, self).clean(value)
-        data = value.strip()
+        data = value.strip().strip(const.TAG_SEP)
         if len(data) < 1:
             if askbot_settings.TAGS_ARE_REQUIRED:
                 raise forms.ValidationError(_('tags are required'))
@@ -362,6 +362,7 @@ class TagNamesField(forms.CharField):
                 raise forms.ValidationError(msg)
 
         for tag in tag_strings:
+            tag = tag.strip() # additional space cleanup
             tag_length = len(tag)
             if tag_length > askbot_settings.MAX_TAG_LENGTH:
                 #singular form is odd in english, but
@@ -408,7 +409,7 @@ class TagNamesField(forms.CharField):
                 except models.Tag.DoesNotExist:
                     cleaned_entered_tags.append(entered_tag)
 
-        return u' '.join(cleaned_entered_tags)
+        return const.TAG_SEP.join(cleaned_entered_tags)
 
 
 class WikiField(forms.BooleanField):

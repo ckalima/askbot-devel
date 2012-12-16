@@ -20,7 +20,7 @@ def setup_full_text_search(script_path):
     finally:
         cursor.close()
 
-def run_full_text_search(query_set, query_text):
+def run_full_text_search(query_set, query_text, user_ids=''):
     """runs full text search against the query set and
     the search text. All words in the query text are
     added to the search with the & operator - i.e.
@@ -36,7 +36,10 @@ def run_full_text_search(query_set, query_text):
     rank_clause = 'ts_rank(' + table_name + \
         '.text_search_vector, plainto_tsquery(%s))'
 
-    where_clause = table_name + '.text_search_vector @@ plainto_tsquery(%s)'
+    if user_ids:
+    	where_clause = "(" + table_name + '.text_search_vector @@ plainto_tsquery(%s) OR askbot_post.author_id IN('+user_ids+'))'
+    else:
+        where_clause = "(" + table_name + '.text_search_vector @@ plainto_tsquery(%s))'
 
     search_query = '&'.join(query_text.split())#apply "AND" operator
     extra_params = (search_query,)

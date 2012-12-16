@@ -7,7 +7,7 @@ from django.conf.urls.defaults import url, patterns, include
 from django.conf.urls.defaults import handler500, handler404
 from django.contrib import admin
 from askbot import views
-from askbot.feed import RssLastestQuestionsFeed, RssIndividualQuestionFeed
+#from askbot.feed import RssLastestQuestionsFeed, RssIndividualQuestionFeed
 from askbot.sitemap import QuestionsSitemap
 from askbot.skins.utils import update_media_revision
 
@@ -19,10 +19,10 @@ if getattr(settings, "ASKBOT_TRANSLATE_URL", False):
 else:
     _ = lambda s:s
 
-feeds = {
-    'rss': RssLastestQuestionsFeed,
-    'question':RssIndividualQuestionFeed
-}
+#feeds = {
+#    'rss': RssLastestQuestionsFeed,
+#    'question':RssIndividualQuestionFeed
+#}
 sitemaps = {
     'questions': QuestionsSitemap
 }
@@ -62,7 +62,7 @@ urlpatterns = patterns('',
             r'(%s)?' % r'/scope:(?P<scope>\w+)' +
             r'(%s)?' % r'/sort:(?P<sort>[\w\-]+)' +
             r'(%s)?' % r'/query:(?P<query>[^/]+)' +  # INFO: question string cannot contain slash (/), which is a section terminator
-            r'(%s)?' % r'/tags:(?P<tags>[\w+.#,-]+)' + # Should match: const.TAG_CHARS + ','; TODO: Is `#` char decoded by the time URLs are processed ??
+            r'(%s)?' % r'/tags:(?P<tags>[\w+\.\#\-\ ]+)' + # Should match: const.TAG_CHARS + ','; TODO: Is `#` char decoded by the time URLs are processed ??
             r'(%s)?' % r'/author:(?P<author>\d+)' +
             r'(%s)?' % r'/page:(?P<page>\d+)' +
         r'/$'),
@@ -205,6 +205,11 @@ urlpatterns = patterns('',
         name = 'get_tag_list'
     ),
     url(
+        r'^get-popular-tag-list/',
+        views.commands.get_popular_tag_list,
+        name = 'get_popular_tag_list'
+    ),
+    url(
         r'^load-tag-wiki-text/',
         views.commands.load_tag_wiki_text,
         name = 'load_tag_wiki_text'
@@ -330,12 +335,12 @@ urlpatterns = patterns('',
         views.commands.join_or_leave_group,
         name = 'join_or_leave_group'
     ),
-    url(
-        r'^feeds/(?P<url>.*)/$', 
-        'django.contrib.syndication.views.feed',
-        {'feed_dict': feeds},
-        name='feeds'
-    ),
+    #url(
+    #    r'^feeds/(?P<url>.*)/$', 
+    #    'django.contrib.syndication.views.feed',
+    #    {'feed_dict': feeds},
+    #    name='feeds'
+    #),
     #upload url is ajax only
     url( r'^%s$' % _('upload/'), views.writers.upload, name='upload'),
     url(r'^%s$' % _('feedback/'), views.meta.feedback, name='feedback'),
