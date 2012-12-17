@@ -40,21 +40,21 @@ TYPE_REPUTATION = (
     (10, 'assigned_by_moderator'),
 )
 
-# be sure these keys are in sync with the reputation choices above
+# be sure the dictionary keys are in sync with the reputation choices above
 TYPE_REPUTATION_DESCRIPTION = {
-    '1': 'up vote',
-    '2': 'answer accepted',
-    '3': 'accepting answer',
-    '4': 'down vote canceled',
-    '5': 'canceling down vote',
-    '-1': 'canceling accepted answer',
-    '-2': 'accepted answer canceled',
-    '-3': 'down vote',
-    '-4': 'flagged',
-    '-5': 'down voting',
-    '-6': 'flagged 3 times',
-    '-7': 'flagged 5 times',
-    '-8': 'up vote canceled',
+    1: 'up vote',
+    2: 'answer accepted',
+    3: 'accepting answer',
+    4: 'down vote canceled',
+    5: 'canceling down vote',
+    -1: 'canceling accepted answer',
+    -2: 'accepted answer canceled',
+    -3: 'down vote',
+    -4: 'flagged',
+    -5: 'down voting',
+    -6: 'flagged 3 times',
+    -7: 'flagged 5 times',
+    -8: 'up vote canceled',
 }
 
 #do not translate keys
