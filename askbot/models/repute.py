@@ -247,3 +247,11 @@ class Repute(models.Model):
                                'link_title': escape(link_title)
                             }
 
+    def get_explanation_snippet_short(self):
+        """returns short description of reputation type activity, values are stored
+        in the TYPE_REPUTATION_DESCRIPTION dictionary
+        """
+        if self.reputation_type == 10: #todo: hide magic number
+            return  _('%(reason)s') % {'reason':self.comment}
+        else:
+            return const.TYPE_REPUTATION_DESCRIPTION[self.reputation_type]
