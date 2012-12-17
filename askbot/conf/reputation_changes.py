@@ -37,7 +37,7 @@ settings.register(
     IntegerValue(
         REP_CHANGES,
         'REP_GAIN_FOR_RECEIVING_ANSWER_ACCEPTANCE',
-        default=15,
+        default=25,
         description=_('Gain for the author of accepted answer')
     )
 )
@@ -46,7 +46,7 @@ settings.register(
     IntegerValue(
         REP_CHANGES,
         'REP_GAIN_FOR_ACCEPTING_ANSWER',
-        default=2,
+        default=5,
         description=_('Gain for accepting best answer')
     )
 )
@@ -74,7 +74,7 @@ settings.register(
     IntegerValue(
         REP_CHANGES,
         'REP_LOSS_FOR_CANCELING_ANSWER_ACCEPTANCE',
-        default=-2,
+        default=-5,
         description=_('Loss for voter for canceling of answer acceptance')
     )
 )
@@ -84,7 +84,7 @@ settings.register(
     IntegerValue(
         REP_CHANGES,
         'REP_LOSS_FOR_RECEIVING_CANCELATION_OF_ANSWER_ACCEPTANCE',
-        default=-5,
+        default=-10,
         description=_('Loss for author whose answer was "un-accepted"')
     )
 )
@@ -94,7 +94,7 @@ settings.register(
     IntegerValue(
         REP_CHANGES,
         'REP_LOSS_FOR_DOWNVOTING',
-        default=-2,
+        default=-1,
         description=_('Loss for giving a downvote')
     )
 )
@@ -114,7 +114,7 @@ settings.register(
     IntegerValue(
         REP_CHANGES,
         'REP_LOSS_FOR_RECEIVING_DOWNVOTE',
-        default=-10,
+        default=-2,
         description=_('Loss for owner of post that was downvoted')
     )
 )
