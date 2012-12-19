@@ -198,6 +198,13 @@ def onAnswerAccept(answer, user, timestamp=None):
                    reputation_type=2,
                    reputation=answer.author.reputation)
         reputation.save()
+        # send user updated signal for accepted answers
+        award_badges_signal.send(None,
+                        event = 'accept_answer',
+                        actor = answer.author,
+                        context_object = answer,
+                        timestamp = timestamp
+                    )
 
     if answer.author == question.author and user == question.author:
         #a plug to prevent reputation gaming by posting a question
