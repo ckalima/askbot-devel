@@ -391,19 +391,22 @@ PASSWORD_MIN_LENGTH = 8
 GOLD_BADGE = 1
 SILVER_BADGE = 2
 BRONZE_BADGE = 3
+PLATINUM_BADGE = 4
 BADGE_TYPE_CHOICES = (
     (GOLD_BADGE,   _('gold')),
     (SILVER_BADGE, _('silver')),
     (BRONZE_BADGE, _('bronze')),
+    (PLATINUM_BADGE, _('platinum')),
 )
 BADGE_CSS_CLASSES = {
-    GOLD_BADGE: 'badge1',
-    SILVER_BADGE: 'badge2',
-    BRONZE_BADGE: 'badge3',
+    GOLD_BADGE: 'achievement-easy',
+    SILVER_BADGE: 'achievement-medium',
+    BRONZE_BADGE: 'achievement-hard',
+    PLATINUM_BADGE: 'achievement-very-hard',
 }
 BADGE_DISPLAY_SYMBOL = '&#9679;'
 
-MIN_REPUTATION = 1
+MIN_REPUTATION = 50
 
 AVATAR_STATUS_CHOICE = (
     ('n', _('None')),

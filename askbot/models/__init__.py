@@ -87,7 +87,7 @@ User.add_to_class('is_fake', models.BooleanField(default=False))
 
 User.add_to_class('email_isvalid', models.BooleanField(default=False)) #@UndefinedVariable
 User.add_to_class('email_key', models.CharField(max_length=32, null=True))
-#hardcoded initial reputaion of 1, no setting for this one
+#hardcoded initial reputaion of 50, no setting for this one
 User.add_to_class('reputation',
     models.PositiveIntegerField(default=const.MIN_REPUTATION)
 )
