@@ -102,6 +102,7 @@ User.add_to_class(
 User.add_to_class('gold', models.SmallIntegerField(default=0))
 User.add_to_class('silver', models.SmallIntegerField(default=0))
 User.add_to_class('bronze', models.SmallIntegerField(default=0))
+User.add_to_class('platinum', models.SmallIntegerField(default=0))
 User.add_to_class(
     'questions_per_page',  # TODO: remove me and const.QUESTIONS_PER_PAGE_USER_CHOICES, we're no longer used!
     models.SmallIntegerField(
@@ -2201,6 +2202,13 @@ def user_get_badge_summary(self):
                 self.bronze
             ) % {'count': self.bronze}
         badge_bits.append(bit)
+    if self.platinum:
+        bit = ungettext(
+                'one platinum badge',
+                '%(count)d platinum badges',
+                self.platinum
+            ) % {'count': self.platinum}
+        badge_bits.append(bit)
 
     if len(badge_bits) == 1:
         badge_str = badge_bits[0]
@@ -3006,6 +3014,8 @@ def record_award_event(instance, created, **kwargs):
             instance.user.silver += 1
         if badge.level == const.BRONZE_BADGE:
             instance.user.bronze += 1
+        if badge.level == const.PLATINUM_BADGE:
+            instance.user.platinum += 1
         instance.user.save()
 
 def notify_award_message(instance, created, **kwargs):

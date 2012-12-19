@@ -71,6 +71,7 @@ class Command(MergeUsersBaseCommand):
     self.to_user.gold += self.from_user.gold
     self.to_user.silver += self.from_user.silver
     self.to_user.bronze += self.from_user.bronze
+    self.to_user.platinum += self.from_user.platinum
 
     if self.from_user.last_seen > self.to_user.last_seen:
         self.to_user.last_seen = self.from_user.last_seen
