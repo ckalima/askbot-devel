@@ -45,27 +45,27 @@ settings.register(
 settings.register(
     IntegerValue(
         BADGES,
-        'NICE_ANSWER_BADGE_MIN_UPVOTES',
-        default=2,
-        description=_('Nice Answer: minimum upvotes for the answer')
-    )
-)
-
-settings.register(
-    IntegerValue(
-        BADGES,
-        'GOOD_ANSWER_BADGE_MIN_UPVOTES',
+        'INSIGHTFUL_BRONZE_BADGE_MIN_UPVOTES',
         default=3,
-        description=_('Good Answer: minimum upvotes for the answer')
+        description=_('Insightful Bronze: minimum upvotes for the answer')
     )
 )
 
 settings.register(
     IntegerValue(
         BADGES,
-        'GREAT_ANSWER_BADGE_MIN_UPVOTES',
-        default=5,
-        description=_('Great Answer: minimum upvotes for the answer')
+        'INSIGHTFUL_SILVER_BADGE_MIN_UPVOTES',
+        default=10,
+        description=_('Insightful Silver: minimum upvotes for the answer')
+    )
+)
+
+settings.register(
+    IntegerValue(
+        BADGES,
+        'INSIGHTFUL_GOLD_BADGE_MIN_UPVOTES',
+        default=25,
+        description=_('Insightful Gold: minimum upvotes for the answer')
     )
 )
 
@@ -144,18 +144,27 @@ settings.register(
 settings.register(
     IntegerValue(
         BADGES,
-        'ENLIGHTENED_BADGE_MIN_UPVOTES',
+        'ENLIGHTENED_BRONZE_BADGE_MIN_UPVOTES',
         default=3,
-        description=_('Enlightened Duty: minimum upvotes')
+        description=_('Enlightened Bronze: minimum accepted answers')
     )
 )
 
 settings.register(
     IntegerValue(
         BADGES,
-        'GURU_BADGE_MIN_UPVOTES',
-        default=5,
-        description=_('Guru: minimum upvotes')
+        'ENLIGHTENED_SILVER_BADGE_MIN_UPVOTES',
+        default=10,
+        description=_('Enlightened Silver: minimum accepted answers')
+    )
+)
+
+settings.register(
+    IntegerValue(
+        BADGES,
+        'ENLIGHTENED_GOLD_BADGE_MIN_UPVOTES',
+        default=25,
+        description=_('Enlightened Gold: minimum accepted answers')
     )
 )
 
@@ -228,5 +237,50 @@ settings.register(
         'ENTHUSIAST_BADGE_MIN_DAYS',
         default = 5,
         description = _('Enthusiast: minimum days')
+    )
+)
+
+settings.register(
+    IntegerValue(
+        BADGES,
+        'LIGHTHOUSE_SILVER_BADGE_MIN',
+        default = 5,
+        description = _('Lighthouse Silver: minimum invitations accepted')
+    )
+)
+
+settings.register(
+    IntegerValue(
+        BADGES,
+        'LIGHTHOUSE_GOLD_BADGE_MIN',
+        default = 20,
+        description = _('Lighthouse Gold: minimum invitations accepted')
+    )
+)
+
+settings.register(
+    IntegerValue(
+        BADGES,
+        'DATA_DIVER_BRONZE_BADGE_MIN',
+        default = 1,
+        description = _('Data Diver Bronze: minimum data sets created')
+    )
+)
+
+settings.register(
+    IntegerValue(
+        BADGES,
+        'DATA_DIVER_SILVER_BADGE_MIN',
+        default = 10,
+        description = _('Data Diver Silver: minimum data sets created')
+    )
+)
+
+settings.register(
+    IntegerValue(
+        BADGES,
+        'DATA_DIVER_GOLD_BADGE_MIN',
+        default = 25,
+        description = _('Data Diver Gold: minimum data sets created')
     )
 )
