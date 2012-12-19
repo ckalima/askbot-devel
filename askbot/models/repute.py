@@ -210,6 +210,10 @@ class Repute(models.Model):
         app_label = 'askbot'
         db_table = u'repute'
 
+    @property
+    def date(self):
+        return self.reputed_at.date()
+
     def get_explanation_snippet(self):
         """returns HTML snippet with a link to related question
         or a text description for a the reason of the reputation change
