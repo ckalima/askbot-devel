@@ -152,7 +152,7 @@ class BadgeTests(AskbotTestCase):
     def test_nice_answer_badge(self):
         self.assert_upvoted_answer_badge_works(
             badge_key = 'nice-answer',
-            min_score = settings.NICE_ANSWER_BADGE_MIN_UPVOTES,
+            min_score = settings.INSIGHTFUL_BRONZE_BADGE_MIN_UPVOTES,
             multiple = True
         )
 
@@ -282,13 +282,13 @@ class BadgeTests(AskbotTestCase):
     def assert_enlightened_badge_works(self, trigger):
         self.assert_accepted_answer_badge_works(
             'enlightened',
-            min_score = settings.ENLIGHTENED_BADGE_MIN_UPVOTES,
+            min_score = settings.ENLIGHTENED_BRONZE_BADGE_MIN_UPVOTES,
             expected_count = 1,
             trigger = trigger
         )
         self.assert_accepted_answer_badge_works(
             'enlightened',
-            min_score = settings.ENLIGHTENED_BADGE_MIN_UPVOTES,
+            min_score = settings.ENLIGHTENED_BRONZE_BADGE_MIN_UPVOTES,
             expected_count = 1,
             previous_count = 1,
             trigger = trigger
